@@ -4,11 +4,11 @@ permissions:
   contents: read
 jobs:
   study:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
-      - run: npm install --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - run: npm install --no-save playwright@1.56.1
       - run: node qa/references.cjs
       - uses: actions/upload-artifact@v4
         with:

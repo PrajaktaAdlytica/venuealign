@@ -4,14 +4,13 @@ permissions:
   contents: read
 jobs:
   review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - name: Install browser
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium
       - name: Inspect pages and capture the reviewed decision
         run: |
           python3 -m http.server 8080 --directory public &
