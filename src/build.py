@@ -2,6 +2,7 @@
 import sys, html, json
 from pathlib import Path
 import scenic
+from cues import review_story as review
 from instruments import icon, width_chart, stock_table, contact_chain
 from art import mark,brand,illustration
 from content import PRODUCTS as P,ROLES as R
@@ -43,15 +44,6 @@ def productcards():
 def suite():
     return '<section id="products" class="section suite"><div class="wrap">'+hgroup('Product suite','From rider to running order.','Start with the signed rider. Check each room, sequence the crew’s work, then send the venue its reviewed packet. Each product has a separate scope. Venue Fit is the first paid evaluation.')+productcards()+'</div></section>'
 def console(): return scenic.console()
-def review():
-    intro=hgroup('The solution · AI-assisted review','Match each rider request to the room.','Venue Fit proposes a comparison for each stop. A technical lead can see the two source passages, check the proposed substitute and record what still needs a call.')
-    sources='<div class="comparison-files"><div>'+icon('rider-intake')+'<span>Signed tour rider<small>NI-R04 · Revision 4</small></span></div><div>'+icon('source')+'<span>House inventory<small>MH-I07 · Revision 7</small></span></div></div>'
-    trace='<div class="evidencefold"><span class="mono">FIXTURE CASE · VF-031 · FICTIONAL</span><strong class="reviewstate">Source comparison</strong><div class="reviewmeter" aria-hidden="true"><i></i></div><p class="tracepassage">NI-R04 · “Astra 40 profile at LX-04.”</p></div>'
-    stages=steps([
-        ('AI extracts the requirement','In the proposed workflow, document AI reads the signed rider, finds the Astra 40 request and keeps its page and line reference. The reviewer can go straight back to the original passage.'),
-        ('AI finds a local alternative','Meridian Hall has no Astra 40. The example links the Luma P4 to signed comparison note C. A second fixture, the Arc P3, lacks that note and stays flagged for follow-up.'),
-        ('The technical lead decides','Inez Park checks both extracts before approving Luma P4 for this stop. She leaves stage width open until someone measures it. Both outcomes travel with the venue packet.')])
-    return '<section id="solution" class="section reviewchapter"><div class="wrap reviewsplit"><div class="reviewsticky">'+intro+sources+trace+'</div>'+stages+'</div></section>'
 def roleblock():
     return '<section id="use-cases" class="section rolechapter"><div class="wrap split"><div>'+hgroup('Use cases','One tour, five different rooms.','A touring manager carries one rider across all five stops. At Meridian Hall, the house lead needs a measurement, the supplier needs a documented alternative and the promoter needs to know whether a rental is due.')+scenic.route()+'</div><div class="rolelist">'+''.join(f'<details {"open" if i==0 else ""}><summary>{r[1]}</summary><h3>{r[2]}</h3><p>{r[3]}</p>{a(r[0],"Explore the workflow","textlink")}</details>' for i,r in enumerate(R))+'</div></div></section>'
 def pricemini():

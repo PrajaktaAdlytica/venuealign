@@ -87,23 +87,37 @@ document.querySelectorAll('.console').forEach(desk => {
     panels.forEach(panel => {panel.hidden = panel.dataset.panel !== choice.dataset.preview;});
   }));
 });
-document.querySelectorAll('.reviewchapter').forEach(chapter => {
-  const rows = [...chapter.querySelectorAll('.steps article')];
-  const states = ['Source comparison','Suggested local match','Reviewer disposition'];
-  const observer = new IntersectionObserver(entries => {
-    const entry = entries.find(item => item.isIntersecting);
-    if (!entry) return;
-    const pos = rows.indexOf(entry.target);
-    chapter.querySelector('.reviewstate').textContent = states[pos];
-    chapter.querySelector('.tracepassage').textContent = [
-      'NI-R04 · “Astra 40 profile at LX-04.”',
-      'MH-I07 · Luma P4 is listed with signed comparison note C.',
-      'Inez Park inspects both sources before recording a decision.'
-    ][pos];
-    chapter.querySelector('.reviewmeter i').style.width = ((pos+1)*100/3)+'%';
-    rows.forEach((row,i) => row.classList.toggle('active',i===pos));
-  }, {rootMargin:'-24% 0px -38% 0px'});
-  rows.forEach(row => observer.observe(row));
+document.querySelectorAll('.cue-layout').forEach(layout => {
+  const steps=[...layout.querySelectorAll('.cue-step')];
+  const figures=steps.map(step=>step.querySelector('figure'));
+  const screen=layout.querySelector('.cue-screen');
+  const wide=matchMedia('(min-width: 800px) and (min-height: 560px) and (prefers-reduced-motion: no-preference)');
+  function update() {
+    const threshold=innerHeight*.53;
+    let active=0;
+    steps.forEach((step,i)=>{if(step.getBoundingClientRect().top<=threshold) active=i;});
+    figures.forEach((figure,i)=>{figure.hidden=i!==active;});
+    steps.forEach((step,i)=>step.classList.toggle('current',i===active));
+  }
+  function arrange() {
+    layout.classList.toggle('staged',wide.matches);
+    if(wide.matches) {
+      screen.append(...figures);
+      update();
+      window.addEventListener('scroll',update,{passive:true});
+      window.addEventListener('resize',update);
+    } else {
+      window.removeEventListener('scroll',update);
+      window.removeEventListener('resize',update);
+      figures.forEach((figure,i)=>{figure.hidden=false;steps[i].append(figure);});
+    }
+  }
+  const entrance=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');entrance.unobserve(entry.target);}});
+  },{threshold:.22});
+  figures.forEach(figure=>entrance.observe(figure));
+  wide.addEventListener('change',arrange);
+  arrange();
 });
 const mix = document.querySelector('#drawing-mix');
 const trace = document.querySelector('.traceframe');

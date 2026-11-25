@@ -32,6 +32,17 @@ await heroButton.hover();
 await page.waitForTimeout(540);
 assert.equal(await heroButton.evaluate(el=>getComputedStyle(el,'::before').transform),'matrix(1, 0, 0, 1, 0, 0)');
 await page.screenshot({path:'captures/shutter-hover.png',clip:await heroButton.boundingBox()});
+const cues=page.locator('#solution .cue-step');
+for(const index of [0,1,2,3,2,0]) {
+  await cues.nth(index).evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-innerHeight*.34));
+  await page.waitForFunction(i=>!document.querySelectorAll('.cue-screen figure')[i].hidden,index);
+  assert.equal(await page.locator('.cue-screen figure:visible').count(),1);
+  if(index===3) {
+    assert(await page.locator('.cue-screen figure:visible').getByText('Approved',{exact:true}).isVisible());
+    await page.waitForTimeout(650);
+    await page.screenshot({path:'captures/ai-review-1440.png'});
+  }
+}
 await page.locator('.drawing').scrollIntoViewIfNeeded();
 await page.waitForTimeout(850);
 await page.screenshot({path:'captures/elevation-1440.png'});
@@ -64,6 +75,7 @@ await page.goto('http://localhost:8080/');
 await page.setViewportSize({width:390,height:844});
 await page.waitForTimeout(2250);
 await page.screenshot({path:'captures/home-390.png'});
+assert.equal(await page.locator('#solution .cue-step figure:visible').count(),4);
 await page.getByRole('button',{name:'Menu',exact:true}).click();
 await page.getByRole('navigation',{name:'Main navigation'}).getByRole('link',{name:'Pricing',exact:true}).click();
 assert(page.url().endsWith('pricing.html'));
