@@ -1,0 +1,16 @@
+name: Reference study
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - run: node qa/references.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reference-observations
+          path: reference-observation.json
