@@ -49,11 +49,6 @@ let readFocus = null;
 const $ = (selector) => document.querySelector(selector);
 const escapeText = (value) => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){try {localStorage.setItem(STORE,JSON.stringify(state));} catch(_) {}}
-function track(event){
-  try {const stored=JSON.parse(localStorage.getItem('venuealign-events')||'[]');
-    const events=Array.isArray(stored)?stored:[]; events.push({event,at:new Date().toISOString()});localStorage.setItem('venuealign-events',JSON.stringify(events.slice(-200)));
-  } catch(_) {}
-}
 function announce(message){$('#announcement').textContent=message;}
 function statusOf(item){
   if(item.id==='VF-031'){

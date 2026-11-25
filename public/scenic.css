@@ -423,3 +423,15 @@ body[data-page="changeover-planner"] .subhero,body[data-page="advance-packet"] .
  @keyframes cue-beam {from{transform:scaleX(0)}to{transform:scaleX(1)}}
  @keyframes cue-approve {from{transform:scale(1.08);opacity:0}to{transform:scale(1);opacity:1}}
 }
+
+.stage-plan-pass {position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(90deg,#102523 0%,transparent 62%),url(assets/stage-trace.svg) center/cover;clip-path:inset(0 0 0 var(--plan-edge,100%));opacity:.88}
+.closing {position:relative;isolation:isolate}
+.closing:before {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#132c2cf0,#112d2b88),var(--sky-cloth) 72% 64%/cover;clip-path:inset(0 var(--drape-edge,50%));pointer-events:none}
+.offer-frame {position:relative;overflow:hidden}
+.offer-inspect {position:absolute;inset:0;display:grid;place-content:center;padding:clamp(8px,2vw,24px);background:linear-gradient(90deg,#102d33df,#153d41a8),var(--sky-cloth) 75% center/cover;clip-path:inset(0 var(--inspect-edge,100%) 0 0)}
+.offer-inspect .sourcesheet {width:clamp(210px,29vw,450px);padding:clamp(8px,1.3vw,20px);background:#f4faf8;color:#193f40}
+.offer-inspect .sourcesheet figcaption span {font-size:clamp(18px,1.8vw,28px)}
+.offer-inspect .sourcesheet dl div {padding:4px 0}.offer-inspect .sourcesheet dt,.offer-inspect .sourcesheet dd {font-size:clamp(10px,.9vw,13px)}
+.subhero:not(:has(.offer-frame)),.formpage {background-position:center,70% calc(22% + var(--cloud-offset,0px))}
+@media(max-width:760px){.offer-inspect .sourcesheet{width:min(73vw,360px)}.offer-inspect .sourcesheet figcaption{padding-bottom:4px}.offer-inspect .sourcesheet dl{margin:3px 0}}
+@media(prefers-reduced-motion:reduce){.offer-inspect{position:static;clip-path:none}.stage-plan-pass,.closing:before{display:none}}

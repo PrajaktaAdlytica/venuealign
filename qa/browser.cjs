@@ -124,6 +124,22 @@ await page.getByRole('button',{name:'Download pilot brief'}).click();
 const brief=JSON.parse(fs.readFileSync(await (await briefEvent).path(),'utf8'));
 assert.equal(brief.pilotModule,'Venue Fit');
 assert(await page.evaluate(()=>JSON.parse(localStorage.getItem('venuealign-events')).some(e=>e.event==='qualified_pilot_request')));
+await page.goto('http://localhost:8080/venue-fit.html');
+const plate=page.locator('.offer-frame');
+const edge=()=>plate.evaluate(el=>parseFloat(getComputedStyle(el).getPropertyValue('--inspect-edge')));
+const initialEdge=await edge();
+await page.evaluate(()=>window.scrollTo(0,420));
+await page.waitForTimeout(650);
+assert((await edge())<initialEdge-10,'Scrolling uncovers the product evidence');
+await page.screenshot({path:'captures/offer-scroll-1440.png'});
+await page.evaluate(()=>window.scrollTo(0,0));
+await page.waitForTimeout(650);
+assert(Math.abs(await edge()-initialEdge)<2,'Product wipe reverses');
+for(const file of ['demo','buyer-account']){
+  await page.goto('http://localhost:8080/'+file+'.html');
+  await page.locator('header a[href="pilot.html"]').click();
+  assert(await page.evaluate(()=>JSON.parse(localStorage.getItem('venuealign-events')).at(-1).event==='pilot_cta'));
+}
 await page.emulateMedia({reducedMotion:'reduce'});
 await page.goto('http://localhost:8080/');
 await page.keyboard.press('Tab');

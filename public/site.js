@@ -2,16 +2,8 @@
 const page = document.body.dataset.page;
 const prefersStill = matchMedia('(prefers-reduced-motion: reduce)');
 const motionOK = () => !prefersStill.matches;
-function track(event) {
-  try {
-    const existing = JSON.parse(localStorage.getItem('venuealign-events') || '[]');
-    const next = Array.isArray(existing) ? existing.slice(-199) : [];
-    next.push({event, at: new Date().toISOString()});
-    localStorage.setItem('venuealign-events', JSON.stringify(next));
-  } catch { /* All controls also work with browser storage disabled. */ }
-}
 if (['rider-intake','venue-fit','changeover-planner','advance-packet'].includes(page)) track('offer_view_' + page);
-document.querySelectorAll('a[href="pilot.html"]').forEach(a => a.addEventListener('click', () => track('pilot_cta')));
+
 const nav = document.querySelector('#mainnav');
 nav.querySelectorAll('a').forEach(link => {
   if(link.getAttribute('href')===page+'.html') link.setAttribute('aria-current','page');
@@ -150,6 +142,17 @@ if (window.gsap && window.ScrollTrigger) {
       replay.hidden=false;
       replay.onclick=()=>opening.restart();
     }
+    // Scrub the scenery in both directions while links and forms stay stationary.
+    function stagePass(selector, props, start, end) {
+      gsap.utils.toArray(selector).forEach(el => {
+        gsap.fromTo(el,props.from,{...props.to,ease:'none',
+          scrollTrigger:{trigger:el,start,end,scrub:.3,invalidateOnRefresh:true}});
+      });
+    }
+    stagePass('.homehero',{from:{'--plan-edge':'100%'},to:{'--plan-edge':'15%'}},'top -3%','bottom 25%');
+    stagePass('.closing',{from:{'--drape-edge':'50%'},to:{'--drape-edge':'3%'}},'top 94%','center 48%');
+    stagePass('.offer-frame',{from:{'--inspect-edge':'100%'},to:{'--inspect-edge':'0%'}},'center 40%','bottom 22%');
+    stagePass('.subhero:not(:has(.offer-frame)),.formpage',{from:{'--cloud-offset':'0px'},to:{'--cloud-offset':'72px'}},'top top','bottom 24%');
     if(trace) {
       ScrollTrigger.create({trigger:trace,start:'top 96%',end:'center 40%',onUpdate:trigger=>{
         if(!manualMix) drawAt(8+trigger.progress*90);
