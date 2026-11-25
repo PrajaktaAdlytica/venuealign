@@ -34,10 +34,12 @@ document.addEventListener('keydown', e => {
   if (active) { active.open = false; active.querySelector('summary').focus(); }
   else if (nav.classList.contains('open')) { setNav(false); hamburger.focus(); }
 });
-document.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => {
-  document.querySelector('.homehero').classList.toggle('plan', btn.dataset.view === 'plan');
-  document.querySelectorAll('[data-view]').forEach(other => other.setAttribute('aria-pressed', String(other===btn)));
-}));
+document.querySelectorAll('.btn').forEach(button => {
+  const middle = document.createElement('i');
+  middle.className = 'slat';
+  middle.setAttribute('aria-hidden','true');
+  button.append(middle);
+});
 document.querySelectorAll('.railbox').forEach(box => {
   const rail = box.querySelector('.productrail');
   const buttons = [...box.querySelectorAll('[data-rail]')];
@@ -47,7 +49,14 @@ document.querySelectorAll('.railbox').forEach(box => {
   }
   buttons.forEach(btn => btn.addEventListener('click', () => {
     const stride = rail.children[1].offsetLeft - rail.children[0].offsetLeft;
-    rail.scrollBy({left:Number(btn.dataset.rail) * stride,behavior:motionOK()?'smooth':'instant'});
+    const target = Math.max(0, Math.min(rail.scrollLeft + Number(btn.dataset.rail) * stride, rail.scrollWidth - rail.clientWidth));
+    const scene = window.ScrollTrigger?.getById('home-products');
+    if (scene) {
+      const y = scene.start + (scene.end - scene.start) * target / (rail.scrollWidth - rail.clientWidth);
+      window.scrollTo({top:y,behavior:motionOK()?'smooth':'instant'});
+    } else {
+      rail.scrollTo({left:target,behavior:motionOK()?'smooth':'instant'});
+    }
   }));
   rail.addEventListener('scroll', sync, {passive:true});
   new ResizeObserver(sync).observe(rail);
@@ -61,6 +70,11 @@ document.querySelectorAll('.reviewchapter').forEach(chapter => {
     if (!entry) return;
     const pos = rows.indexOf(entry.target);
     chapter.querySelector('.reviewstate').textContent = states[pos];
+    chapter.querySelector('.tracepassage').textContent = [
+      'NI-R04 · “Astra 40 profile at LX-04.”',
+      'MH-I07 · Luma P4 is listed with signed comparison note C.',
+      'Inez Park inspects both sources before recording a decision.'
+    ][pos];
     chapter.querySelector('.reviewmeter i').style.width = ((pos+1)*100/3)+'%';
     rows.forEach((row,i) => row.classList.toggle('active',i===pos));
   }, {rootMargin:'-24% 0px -38% 0px'});
@@ -68,15 +82,51 @@ document.querySelectorAll('.reviewchapter').forEach(chapter => {
 });
 if (window.gsap && window.ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    gsap.from('.herohead > *', {y:14,opacity:.4,duration:.65,stagger:.055,clearProps:'all'});
-    gsap.utils.toArray('.hgroup,.problemphoto,.productcard,.console,.twocards article,.reviewnote,.bigart').forEach(el => {
-      gsap.from(el,{y:20,duration:.7,ease:'power2.out',clearProps:'transform',scrollTrigger:{trigger:el,start:'top 93%',once:true}});
-    });
-    if (document.querySelector('.heroimage')) {
-      gsap.to('.heroimage',{yPercent:7,ease:'none',scrollTrigger:{trigger:'.homehero',start:'top top',end:'bottom top',scrub:true}});
+  const media = gsap.matchMedia();
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    const hero = document.querySelector('.herohead');
+    if (hero) {
+      gsap.timeline({defaults:{ease:'power3.out'}})
+        .from('.herohead h1 i',{yPercent:104,stagger:.1,duration:.85})
+        .from('.herohead p,.herohead .actions',{opacity:0,y:10,duration:.48,stagger:.09},.35);
     }
+    const reveal = (selector,props) => gsap.utils.toArray(selector).forEach(el => {
+      gsap.from(el,{...props,duration:.77,ease:'power2.out',clearProps:'transform,opacity,clipPath',
+        scrollTrigger:{trigger:el,start:'top 94%',once:true}});
+    });
+    reveal('.drawinggrid figure,.problemphoto,.subphoto',{clipPath:'inset(0 0 0 17%)',x:-16});
+    reveal('.stopplate,.console,.reviewnote,.sourcesheet',{x:18,opacity:.6});
+    reveal('.section .hgroup,.intake,.subhero h1,.closing h2,.twocards article',{y:19,opacity:.7});
+    reveal('.queuegraph i',{scaleX:.1,transformOrigin:'left'});
+    gsap.utils.toArray('.routeline').forEach(line => {
+      const length=line.getTotalLength();
+      gsap.fromTo(line,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,ease:'none',
+        scrollTrigger:{trigger:line.closest('figure'),start:'top 90%',end:'center 47%',scrub:true}});
+    });
   });
+  media.add('(min-width: 1000px) and (hover: hover) and (prefers-reduced-motion: no-preference)', () => {
+    let lenis;
+    const tick = t => lenis.raf(t*1000);
+    if (window.Lenis && !document.querySelector('.intake')) {
+      lenis = new Lenis({autoRaf:false,anchors:true,duration:.86,smoothWheel:true,
+        prevent:node => node instanceof Element && !!node.closest('.flyout,dialog,.productrail:focus-within')});
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+    }
+    const rail=document.querySelector('[data-page=index] .productrail');
+    if (rail && rail.scrollWidth>rail.clientWidth && innerHeight>610) {
+      const range=()=>rail.scrollWidth-rail.clientWidth;
+      ScrollTrigger.create({id:'home-products',trigger:rail.closest('.railbox'),start:'top 10%',end:()=>'+='+range(),
+        pin:true,invalidateOnRefresh:true, onUpdate:self=>{rail.scrollLeft=self.progress*range();}});
+      rail.classList.add('scroll-driven');
+    }
+    if(document.querySelector('.heroimage')) {
+      gsap.to('.heroimage',{yPercent:6,ease:'none',scrollTrigger:{trigger:'.homehero',start:'top top',end:'bottom top',scrub:true}});
+    }
+    return () => {rail?.classList.remove('scroll-driven'); if(lenis){gsap.ticker.remove(tick);lenis.destroy();}};
+  });
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }
 function download(name, content) {
   const url=URL.createObjectURL(new Blob([JSON.stringify(content,null,2)],{type:'application/json'}));
