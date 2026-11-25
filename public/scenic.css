@@ -363,3 +363,22 @@ html {scroll-padding-top:74px}
 @media(max-width:760px){.navend .signin-link{display:none}}
 @media(min-width:761px) and (max-width:950px){.navinner,.navinner nav,.navend{gap:10px}.navinner .brand{font-size:23px}}
 @media(prefers-reduced-motion:reduce){.top,body[data-page=index] .top{transition:none}}
+
+/* The painted cyclorama, the stage deck and the house curtain recur across the site. */
+:root {
+  --sky-cloth: url("assets/scenic-hero.webp");
+  --house-drape: repeating-linear-gradient(90deg,#431e2c 0px,#643044 26px,#7b4050 43px,#592b3b 67px,#321b27 91px,#431e2c 111px);
+}
+.problemchapter {background:linear-gradient(90deg,#fafdfc 27%,#f7fcfaec 54%,#ecf5f385),var(--sky-cloth) 65% 22%/160% auto}
+.reviewchapter {background:linear-gradient(92deg,#f2fafa 20%,#f0f8f6ed 57%,#e7f4f2df),var(--sky-cloth) 68% 16%/185% auto}
+.comparison-files {display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:460px;margin:14px 0 8px}
+.comparison-files>div {display:flex;align-items:center;gap:9px;padding:12px;background:#fbfefd;border:1px solid #aac5c2;font:600 12px/1.4 var(--sans)}
+.comparison-files .symbol {color:#296560}.comparison-files small {display:block;font:10px/1.5 var(--mono);color:#4c6365}
+.reviewchapter .evidencefold {max-width:460px}
+.evidence,.subhero.night {background:linear-gradient(90deg,#0c2430f5 15%,#103742d9 54%,#193b43a8),var(--sky-cloth) 78% 19%/150% auto}
+.suite {background:linear-gradient(155deg,#e7f3f3f5 10%,#e6eff2d9 62%,#e0e7e4cc),var(--sky-cloth) center bottom/cover}
+.closing {background:linear-gradient(110deg,#271720de,transparent 70%),var(--house-drape)}
+footer {background:linear-gradient(0deg,#0c2024f5,#102a2dfa 70%),var(--sky-cloth) center bottom/cover}
+.subhero:not(.night),.formpage {background:linear-gradient(90deg,#f5fbfa 8%,#edf7f5f5 43%,#deeeedaa),var(--sky-cloth) 70% 22%/165% auto}
+body[data-page="changeover-planner"] .subhero,body[data-page="advance-packet"] .subhero {background:linear-gradient(90deg,#f6faf8 15%,#edf4f0ee 61%,#e6f0edb8),url(assets/model-workshop.webp) right 55%/cover}
+@media(max-width:760px){.comparison-files>div{padding:9px;gap:6px}.subhero:not(.night),.formpage,.evidence,.reviewchapter,.problemchapter,.suite {background-repeat:no-repeat;background-color:#e9f2f1}.evidence{background-color:#153039}}

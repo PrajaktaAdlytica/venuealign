@@ -60,3 +60,5 @@ body {background:linear-gradient(130deg,#e2efef,#f5f8f9 68%)}
  .source {animation:case-in .4s both ease-out}.source+.source {animation-delay:.09s}
  .decision {animation:case-in .45s both ease-out}
 }
+body {background:linear-gradient(100deg,#edf5f5f7 15%,#f3f8f7e8 62%,#e1eeeecc),url(assets/scenic-hero.webp) 72% top/cover fixed}
+.sidebar {background:linear-gradient(160deg,#143941f5,#13313aed),url(assets/scenic-hero.webp) 70% center/cover}
