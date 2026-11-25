@@ -351,3 +351,15 @@ input:not([type=range]),textarea,select {background:#fbfefd}
  .navinner .brand svg {width:22px;padding-right:5px}
  .navend .btn.small {padding-inline:8px;font-size:11px}
 }
+
+.top,body[data-page=index] .top {position:sticky;top:0;z-index:30;transition:transform .28s ease,background-color .22s}
+body[data-page=index] .top {position:fixed}
+.top.nav-away,body[data-page=index] .top.nav-away {transform:translateY(-102%)}
+.top:has(:focus-visible),body[data-page=index] .top:has(:focus-visible) {transform:none}
+body[data-page=index] .top.over-page {background:#142f30f5}
+.signin-link {font:600 13px var(--sans);white-space:nowrap}
+.signin-link:hover {text-decoration:underline;text-underline-offset:5px}
+html {scroll-padding-top:74px}
+@media(max-width:760px){.navend .signin-link{display:none}}
+@media(min-width:761px) and (max-width:950px){.navinner,.navinner nav,.navend{gap:10px}.navinner .brand{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.top,body[data-page=index] .top{transition:none}}

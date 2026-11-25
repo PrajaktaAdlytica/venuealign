@@ -18,6 +18,20 @@ nav.querySelectorAll('a').forEach(link => {
 });
 const hamburger = document.querySelector('.hamb');
 const menus = [...nav.querySelectorAll('details')];
+const masthead=document.querySelector('.top');
+let anchorY=window.scrollY;
+window.addEventListener('scroll', () => {
+  const y=Math.max(0,window.scrollY);
+  const delta=y-anchorY;
+  if (y<80 || nav.classList.contains('open') || menus.some(menu=>menu.open)) {
+    masthead.classList.remove('nav-away');
+  } else if (Math.abs(delta)>=12) {
+    masthead.classList.toggle('nav-away',delta>0);
+  } else return;
+  anchorY=y;
+  masthead.classList.toggle('over-page',y>60);
+},{passive:true});
+masthead.addEventListener('focusin',()=>masthead.classList.remove('nav-away'));
 function setNav(open) {
   hamburger.setAttribute('aria-expanded',String(open));
   hamburger.textContent = open ? 'Close' : 'Menu';
@@ -127,6 +141,14 @@ if (window.gsap && window.ScrollTrigger) {
         if(!manualMix) drawAt(8+trigger.progress*90);
       }});
     }
+    if(hero) {
+      gsap.to(hero,{yPercent:-16,opacity:.22,ease:'none',scrollTrigger:{
+        trigger:'.homehero',start:'22% top',end:'bottom top',scrub:.45}});
+    }
+    gsap.utils.toArray('.routeplate').forEach(plate=>{
+      gsap.from(plate.querySelectorAll('circle'),{scale:.15,transformOrigin:'center',stagger:.18,
+        scrollTrigger:{trigger:plate,start:'top 86%',end:'center 48%',scrub:.35}});
+    });
     const reveal = (selector,props) => gsap.utils.toArray(selector).forEach(el => {
       gsap.from(el,{...props,duration:.77,ease:'power2.out',clearProps:'transform,opacity,clipPath',
         scrollTrigger:{trigger:el,start:'top 94%',once:true}});
