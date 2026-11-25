@@ -212,3 +212,15 @@ html.lenis,html.lenis body {height:auto}
 @media(prefers-reduced-motion:reduce){.btn b,.art:hover .illustration,.art:hover .moduleplate{transform:none!important}}
 .scroll-driven {scroll-snap-type:none}
 body[data-page=index] .top {background:linear-gradient(180deg,#102321dc,#10232199)}
+.conchoices {display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid #b2a893;margin:17px 0 3px}
+.conchoices button {border:0;border-bottom:2px solid transparent;background:transparent;color:#635c4d;padding:9px 12px;font:600 12px/1.25 var(--sans)}
+.conchoices button:first-child {padding-left:1px}
+.conchoices button[aria-pressed=true] {color:var(--wine);border-color:var(--wine)}
+.conchoices button:hover {color:var(--wine)}
+.status.state0 {background:#f1dfbd;border-color:#bd9c67}
+.status.state1 {background:#f0ded0;border-color:#b89b89}
+.status.state2 {background:#dae4d7;border-color:#9baa93}
+.conpanel .conrow {padding-bottom:4px}
+@media(prefers-reduced-motion:no-preference){.conpanel:not([hidden]){animation:source-in .28s ease-out}@keyframes source-in{from{opacity:.5;transform:translateX(6px)}to{opacity:1;transform:none}}}
+.faqgrid {display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(30px,6.5vw,100px);align-items:start}
+@media(max-width:760px){.faqgrid{grid-template-columns:1fr}}

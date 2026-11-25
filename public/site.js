@@ -62,6 +62,14 @@ document.querySelectorAll('.railbox').forEach(box => {
   new ResizeObserver(sync).observe(rail);
   sync();
 });
+document.querySelectorAll('.console').forEach(desk => {
+  const choices = [...desk.querySelectorAll('[data-preview]')];
+  const panels = [...desk.querySelectorAll('[data-panel]')];
+  choices.forEach(choice => choice.addEventListener('click', () => {
+    choices.forEach(button => button.setAttribute('aria-pressed',String(button === choice)));
+    panels.forEach(panel => {panel.hidden = panel.dataset.panel !== choice.dataset.preview;});
+  }));
+});
 document.querySelectorAll('.reviewchapter').forEach(chapter => {
   const rows = [...chapter.querySelectorAll('.steps article')];
   const states = ['Source comparison','Suggested local match','Reviewer disposition'];

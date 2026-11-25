@@ -42,4 +42,19 @@ def illustration(i):
         inner='<rect x="77" y="27" width="244" height="151" fill="#b59d7c"/><rect x="71" y="21" width="244" height="151" fill="#ddd0ac"/><rect x="65" y="15" width="244" height="151" fill="#f8efdb"/><text x="85" y="47">Meridian Hall</text><text class="tiny" x="85" y="65">ADVANCE PACKET / STOP 03</text><path d="M85 76h202m-202 22h202m-202 23h202m-202 23h202"/><g class="code"><text x="88" y="91">VF-031   Lighting</text><text x="88" y="115">VF-032   Stage spacing</text><text x="88" y="138">VF-033   House contact</text></g><circle cx="278" cy="110" r="4" fill="#a25e41"/>'
     return f'<svg class="illustration" viewBox="0 0 400 196" role="img" aria-label="{titles[i]}"><g stroke="currentColor" stroke-width=".8" fill="none">{inner}</g></svg>'
 def console():
-    return '''<div class="console"><div class="conbar"><b>Venue Fit</b><span>Demo · Simulated data</span></div><div class="consolebody"><span class="smallcap">Night Index / Stop 03 of 05</span><h3>Meridian Hall</h3><div class="queuegraph" aria-label="Initial queue: one awaiting review, one open, one confirmed"><i></i><i></i><i></i></div><div class="graphkey">1 awaiting review · 1 open · 1 confirmed</div><div class="conrow"><span class="status pending">Needs review</span><strong>Profile fixture substitution</strong><small>VF-031 · Inez Park</small></div><div class="sourcesplit"><div><small>NI-R04 / v4</small><b>Astra 40 profile</b><span>Signed rider</span></div><div><small>MH-I07 / v7</small><b>Luma P4</b><span>House comparison note C</span></div></div><a class="conlink" href="demo.html#VF-031">Inspect the fixture evidence <b>↗</b></a></div></div>'''
+    cases=[
+        ('Fixture', 'VF-031', 'Needs review', 'Profile fixture substitution', 'Inez Park', 'NI-R04 / v4','Astra 40 profile','Signed rider','MH-I07 / v7','Luma P4','House comparison note C','Inspect the fixture evidence'),
+        ('Stage width','VF-032','Open','Stage spacing','Field measurement due','NI-R04 / v4','8.0 m clear','Signed rider','MH-P02 / v2','7.4 m masking','Venue plan · Sheet S-2','Inspect the spacing evidence'),
+        ('House contact','VF-033','Confirmed','House stage contact','Inez Park','NI-R04 / v4','House contact','Arrival notes','MH-C03 / v3','Inez Park','House call sheet','Inspect the contact record'),
+    ]
+    choices=[]
+    panels=[]
+    for i,case in enumerate(cases):
+        label,ref,status,title,owner,id1,value1,source1,id2,value2,source2,link=case
+        active='true' if i==0 else 'false'
+        hidden='' if i==0 else ' hidden'
+        choices.append(f'<button type="button" data-preview="{ref}" aria-pressed="{active}">{label}</button>')
+        panels.append(f'<div class="conpanel" data-panel="{ref}"{hidden}><div class="conrow"><span class="status state{i}">{status}</span><strong>{title}</strong><small>{ref} · {owner}</small></div><div class="sourcesplit"><div><small>{id1}</small><b>{value1}</b><span>{source1}</span></div><div><small>{id2}</small><b>{value2}</b><span>{source2}</span></div></div><a class="conlink" href="demo.html#{ref}">{link} <b>↗</b></a></div>')
+    return '<div class="console"><div class="conbar"><b>Venue Fit</b><span>Demo · Simulated data</span></div><div class="consolebody"><span class="smallcap">Night Index / Stop 03 of 05</span><h3>Meridian Hall</h3><div class="queuegraph" aria-hidden="true"><i></i><i></i><i></i></div><div class="graphkey">Opening queue · 1 awaiting review · 1 open · 1 confirmed</div><div class="conchoices" role="group" aria-label="Choose a case to preview">'+''.join(choices)+'</div>'+''.join(panels)+'</div></div>'
+def checklist():
+    return sheet('Pilot file list','Required inputs',[('01','Signed tour rider'),('02','Venue plans'),('03','Dated inventory lists'),('04','Final rental amendments')])
