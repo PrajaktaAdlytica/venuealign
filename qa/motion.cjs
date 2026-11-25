@@ -2,9 +2,9 @@ const {spawnSync}=require('child_process');
 const fs=require('fs');
 const path=require('path');
 
-// Capture the actual browser frames. The optional film uses the runner's FFmpeg.
+// Capture browser frames using the same Chrome rendering as the interaction tests.
 async function captureMotion(browser) {
-  if(spawnSync('ffmpeg',['-version'],{stdio:'ignore'}).status!==0) return;
+  const ffmpeg=path.join(path.dirname(require.resolve('@ffmpeg-installer/linux-x64/package.json')),'ffmpeg');
   const directory=fs.mkdtempSync(path.join(require('os').tmpdir(),'venuealign-film-'));
   const page=await browser.newPage({viewport:{width:1100,height:760}});
   let frame=0;
@@ -31,7 +31,7 @@ async function captureMotion(browser) {
     await sequence(1.25);
     await page.getByRole('button',{name:'Fixture',exact:true}).click();
     await sequence(1.25);
-    const clip=spawnSync('ffmpeg',['-loglevel','error','-framerate','12','-i',path.join(directory,'%04d.jpg'),'-c:v','libx264','-pix_fmt','yuv420p','-movflags','+faststart','-y','captures/home-motion.mp4']);
+    const clip=spawnSync(ffmpeg,['-loglevel','error','-framerate','12','-i',path.join(directory,'%04d.jpg'),'-c:v','libx264','-pix_fmt','yuv420p','-movflags','+faststart','-y','captures/home-motion.mp4']);
     if(clip.status!==0) throw new Error(clip.stderr.toString());
   } finally {
     await page.close();

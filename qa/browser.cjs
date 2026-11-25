@@ -114,7 +114,7 @@ assert.equal(await page.locator('.herohead h1').innerText().then(t=>t.replace(/\
 await page.getByRole('button',{name:'Next product'}).click();
 assert(await page.locator('.productrail').evaluate(el=>el.scrollLeft>0));
 assert.deepEqual(errors,[]);
-fs.writeFileSync('captures/qa.txt','1440 and 390 reviewed case captures. All public HTML routes checked at 390, 768 and 1440. Mobile menu, shutter hover, stage-spacing link, reduced motion and product shelf, demo source review, local approval, open spacing, export, reset and pilot brief verified.');
+fs.writeFileSync('captures/qa.txt','1440 and 390 reviewed case captures. All public HTML routes checked at 320, 390, 768 and 1440. Product navigation, replayable opening, keyboard drawing slider, inventory table, width chart, mobile menu, shutter hover, stage-spacing link, reduced motion and product shelf, demo source review, local approval, open spacing, export, reset and pilot brief verified.');
 await require('./motion.cjs')(browser);
 await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});

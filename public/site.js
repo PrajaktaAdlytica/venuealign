@@ -13,6 +13,9 @@ function track(event) {
 if (['rider-intake','venue-fit','changeover-planner','advance-packet'].includes(page)) track('offer_view_' + page);
 document.querySelectorAll('a[href="pilot.html"]').forEach(a => a.addEventListener('click', () => track('pilot_cta')));
 const nav = document.querySelector('#mainnav');
+nav.querySelectorAll('a').forEach(link => {
+  if(link.getAttribute('href')===page+'.html') link.setAttribute('aria-current','page');
+});
 const hamburger = document.querySelector('.hamb');
 const menus = [...nav.querySelectorAll('details')];
 function setNav(open) {
@@ -135,7 +138,7 @@ if (window.gsap && window.ScrollTrigger) {
       const chart=gsap.timeline({scrollTrigger:{trigger:desk,start:'top 84%',once:true},defaults:{ease:'power2.out'}});
       chart.fromTo(desk.querySelectorAll('.arc'),{attr:{'stroke-dasharray':'0 100'}},{attr:{'stroke-dasharray':'31 69'},duration:1,stagger:.17},0)
         .from(desk.querySelectorAll('.ringlegend div'),{x:9,opacity:0,duration:.35,stagger:.14},.12)
-        .from(desk.querySelectorAll('.conpanel:first-of-type tr,.conpanel[data-panel="VF-031"] tbody tr'),{y:10,opacity:.05,stagger:.12,duration:.55,clearProps:'transform,opacity'},.25);
+        .from(desk.querySelectorAll('.conpanel[data-panel="VF-031"] tbody tr'),{y:10,opacity:.05,stagger:.12,duration:.55,clearProps:'transform,opacity'},.25);
     });
     gsap.utils.toArray('.sourcesheet,.scoretable').forEach(sheet => {
       const rows=sheet.querySelectorAll('dl>div,tbody tr');

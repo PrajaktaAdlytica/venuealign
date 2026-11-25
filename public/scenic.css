@@ -322,3 +322,32 @@ h2 {font-size:clamp(34px,3.5vw,58px);letter-spacing:-.041em;line-height:1.02}
  .stocktable td,.stocktable th {padding:6px 4px}
  .rolechapter .routeplate {color:var(--ink)}
 }
+
+.subhero:not(.night),.formpage {background:linear-gradient(120deg,#eff7f6,#e3eef1)}
+.subhero .sourcesheet,.subhero .scoretable,.subhero .routeplate,.intake,.screenproof {background:#fff;border-color:#abc3c2}
+.intake,.subhero .sourcesheet {border-top-color:#66928f}
+input:not([type=range]),textarea,select {background:#fbfefd}
+.navinner [aria-current=page] {text-decoration:underline;text-underline-offset:5px}
+.art {position:relative}
+.art:after {content:"";position:absolute;inset:0;pointer-events:none;border-right:2px solid #569c92;background:linear-gradient(90deg,transparent 65%,#eafffa34);transform:translateX(-102%);opacity:0}
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+ .productcard:is(:hover,:focus-within) .art:after {animation:card-scan .72s ease-in-out}
+ .offersmenu a:hover .symbol {background:#bcded6}
+ @keyframes card-scan {0%{transform:translateX(-101%);opacity:0}15%{opacity:1}90%{opacity:1}100%{transform:translateX(2%);opacity:0}}
+}
+.footgrid>div:not(:first-child) a:hover {color:#fff;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:760px) {
+ .navinner .flyout.offersmenu {border:0}
+ .conchoices button {min-height:42px}
+}
+@media(max-width:760px) {
+ .navinner {gap:10px}
+ .navend .btn.small {white-space:nowrap;font:600 12px/1.25 var(--sans);padding:9px 12px}
+ .navinner .hamb {font-size:12px;flex-shrink:0}
+}
+@media(max-width:370px) {
+ .navinner {gap:6px}
+ .navinner .brand {font-size:21px;gap:5px}
+ .navinner .brand svg {width:22px;padding-right:5px}
+ .navend .btn.small {padding-inline:8px;font-size:11px}
+}

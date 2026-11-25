@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install browser
         run: |
-          npm install --no-save playwright@1.56.1
+          npm install --no-save playwright@1.56.1 @ffmpeg-installer/linux-x64@4.1.0
       - name: Inspect pages and capture the reviewed decision
         run: |
           python3 -m http.server 8080 --directory public &
