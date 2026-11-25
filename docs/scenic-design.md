@@ -16,6 +16,9 @@ The original artwork uses a petrol wing, painted sky cloth, terracotta flats and
 
 ## Scroll and review behavior
 
+The AI story follows four cues at LX-04. A marked rider passage gives way to the venue inventory, a profile fixture study and Inez Park’s fictional approval. On taller desktop screens the scenic frame stays in view while the captions pass. Phones, short windows and reduced-motion layouts place each artifact beside its caption in reading order.
+
+
 Scrolling blends the painted elevation into a technical tracing. A range input lets a reviewer inspect either view with a pointer or keyboard. The case preview draws its status ring and reveals the three inventory rows. Selecting Stage width grows the two separately labelled dimension bars. The desktop product shelf travels horizontally with scroll and has previous and next controls. A tour route draws across five stops. The review chapter changes the visible evidence excerpt as the source, comparison and decision steps enter view. The local workbench records an approval only after the visitor inspects both documents and chooses the reviewer action. On smaller screens the shelf uses native horizontal scrolling. A reduced-motion preference preserves the reading order, link actions and case state.
 
 The scroll implementation uses [Lenis’s GSAP integration](https://github.com/darkroomengineering/lenis#gsap-scrolltrigger) and [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/). Keyboard focus has its own outline and reduced motion removes the button transition. [W3C focus guidance](https://www.w3.org/WAI/WCAG22/Techniques/css/C45)

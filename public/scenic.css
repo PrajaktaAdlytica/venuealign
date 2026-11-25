@@ -415,3 +415,11 @@ body[data-page="changeover-planner"] .subhero,body[data-page="advance-packet"] .
 .staged .cue-visual {height:clamp(345px,54vh,530px);margin:0}
 @media(prefers-reduced-motion:no-preference){.staged .cue-visual:not([hidden])>:last-child {animation:cue-arrive .55s cubic-bezier(.22,.78,.27,1) both}@keyframes cue-arrive {from{opacity:.15;transform:translateY(18px);clip-path:inset(0 0 12% 0)}to{opacity:1;transform:none;clip-path:inset(0)}}}
 @media(prefers-reduced-motion:no-preference){.cue-layout:not(.staged) .cue-visual.in-view>:last-child {animation:cue-arrive .55s cubic-bezier(.22,.78,.27,1) both}}
+@media(prefers-reduced-motion:no-preference) {
+ .cue-visual:is(.in-view):not([hidden]) mark {background:linear-gradient(#f5d998,#f5d998) left center/100% 100% no-repeat;animation:cue-highlight .7s .15s both}
+ .cue-visual.in-view:not([hidden]) .profile-study>path:last-child {transform-origin:205px 60px;animation:cue-beam .65s .16s both}
+ .cue-visual.in-view:not([hidden]) .approval-mark {animation:cue-approve .38s .23s both}
+ @keyframes cue-highlight {from{background-size:0% 100%}to{background-size:100% 100%}}
+ @keyframes cue-beam {from{transform:scaleX(0)}to{transform:scaleX(1)}}
+ @keyframes cue-approve {from{transform:scale(1.08);opacity:0}to{transform:scale(1);opacity:1}}
+}
