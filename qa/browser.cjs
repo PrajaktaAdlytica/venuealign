@@ -128,6 +128,29 @@ await page.getByRole('button',{name:'Download pilot brief'}).click();
 const brief=JSON.parse(fs.readFileSync(await (await briefEvent).path(),'utf8'));
 assert.equal(brief.pilotModule,'Venue Fit');
 assert(await page.evaluate(()=>JSON.parse(localStorage.getItem('venuealign-events')).some(e=>e.event==='qualified_pilot_request')));
+for(const [route,type] of [['request-demo.html?product=venue-fit','guided_demo'],['contact.html','contact'],['feedback.html','feedback']]) {
+  await page.goto('http://localhost:8080/'+route);
+  const form=page.locator('form');
+  assert.equal(await form.evaluate(el=>el.checkValidity()),false);
+  if(type==='guided_demo') assert.equal(await form.locator('[name=product]').inputValue(),'Venue Fit');
+  for(const input of await form.locator('input').all()) {
+    await input.fill(await input.getAttribute('type')==='email'?'qa@example.invalid':'QA Venue');
+  }
+  for(const select of await form.locator('select').all()) {
+    if(!await select.inputValue()) await select.selectOption({index:1});
+  }
+  await form.locator('textarea').fill('Fictional review note');
+  const event=page.waitForEvent('download');
+  await form.locator('[type=submit]').click();
+  const data=JSON.parse(fs.readFileSync(await (await event).path(),'utf8'));
+  assert.equal(data.type,type);
+  assert(await form.locator('[role=status],.formresult').first().innerText());
+}
+const events=await page.evaluate(()=>JSON.parse(localStorage.getItem('venuealign-events')));
+assert(events.every(entry=>Object.keys(entry).sort().join(',')==='at,event'));
+await page.goto('http://localhost:8080/privacy.html');
+await page.locator('#wipe').click();
+assert(await page.evaluate(()=>['venuealign-events','venuealign-meridian-v1'].every(key=>localStorage.getItem(key)===null)));
 await page.goto('http://localhost:8080/venue-fit.html');
 const plate=page.locator('.offer-frame');
 const edge=()=>plate.evaluate(el=>parseFloat(getComputedStyle(el).getPropertyValue('--inspect-edge')));
