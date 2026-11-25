@@ -19,3 +19,14 @@ Run the Browser review workflow manually in GitHub Actions. It checks all page w
 The example documents and all organizations and people in the walk-through are fictional. A real reviewer must decide equipment fit, staffing and physical setup. Proposed pricing and module availability remain hypotheses. Forms download a local draft. Live CRM/email delivery, authentication, document processing, integrations and hosted analytics require separate implementation. The demo event list contains names and timestamps only. The privacy page clears local events and reviewer state.
 
 For a custom domain, use the owner-approved VenueAlign domain and the DNS records returned by the chosen host. The old StageRigfolio domain is unverified for this brand.
+
+## Vercel import
+
+Import this GitHub repository as a new Vercel project. Keep the root at the repository root, select **Other** for the framework, leave the build command empty and use **public** as the output directory. The website has no install step or required environment variables. Use **main** as the production branch.
+
+## Project handoff
+
+- [Approved House Fold logo kit](design/VenueAlign-House-Fold.zip)
+- [Visual directions](design/VenueAlign-visual-directions.html) and [logo comparison](design/logo-studies/comparison.png)
+- [Website copy](docs/VenueAlign-page-copy.md) and [completion review](docs/VenueAlign-completion-review.md)
+- [Final browser captures](qa/captures/) and [verified QA run](https://github.com/PrajaktaAdlytica/venuealign/actions/runs/45601989848)
