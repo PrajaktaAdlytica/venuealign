@@ -1,8 +1,8 @@
 # VenueAlign · The Scenic Model
 
-The touring production manager’s first question is whether the room can supply what the rider asks for. The homepage opens on a physical model of the show, then shows the same scenery as an elevation beside Meridian Hall’s open case. The lighting alternative and the clear-width question lead directly into the source workbench.
+The touring production manager’s first question is whether the room can supply what the rider asks for. The homepage opens on a physical model of the show, then follows the missing fixture from the signed rider to a proposed local substitute and a technical decision. The lighting alternative and the clear-width question lead directly into the source workbench.
 
-The original artwork uses a petrol wing, painted sky cloth, terracotta flats and a brass practical. A cool drafting grid introduces the tracing, white pages frame the working documents, and a dark petrol field brings the interactive review desk forward. Newsreader sets the headline and italic rider thesis. Manrope carries navigation, buttons and operational copy. Monospaced labels identify versions, case IDs and dates. Primary actions use oxblood, white #FBFCFB and dark petrol #173733. The V mark and ruled serif wordmark also appear on the fictional workbench.
+The original artwork uses a petrol wing, painted sky cloth, terracotta flats and a brass practical. Clouds from the original sky cloth recur behind the problem, review story and secondary-page introductions. The paid-pilot invitation uses burgundy curtain folds. A cool drafting grid introduces the tracing, white pages frame the working documents, and a dark petrol field brings the interactive review desk forward. Newsreader sets the headline and italic rider thesis. Manrope carries navigation, buttons and operational copy. Monospaced labels identify versions, case IDs and dates. Primary actions use oxblood, white #FBFCFB and dark petrol #173733. The V mark and ruled serif wordmark also appear on the fictional workbench.
 
 ## Component references
 
