@@ -43,3 +43,20 @@ body {background:url(assets/paper-grain.png),var(--paper)}
   @keyframes case-in {from {opacity:.6;transform:translateY(5px)} to{opacity:1;transform:none}}
 }
 @media(max-width:660px){.logo{font-size:22px}.topinner .logo svg{width:23px}}
+:root {--ink:#203537;--sub:#4f6264;--paper:#edf3f4;--line:#c2d0d0;--navy:#163a40}
+body {background:linear-gradient(130deg,#e2efef,#f5f8f9 68%)}
+.workspace {border-color:#a2b7b7}
+.sidebar {background:linear-gradient(160deg,#153940,#193537)}
+.record,.sources,.acct-grid article,dialog {background:#fff}
+.decision,dialog blockquote {background:#e7f3f1;border-color:#a7c6c2}
+.sources,.decision,.acct-grid article {border-top-color:#84aaa7}
+.case[aria-current=true] {background:#2b5359;border-color:#77a9a7;box-shadow:inset 3px 0 #9cddd2}
+.case-instrument {margin-top:12px;padding:9px 14px;background:#f2f8f8;border:1px solid #c2d4d3;color:#203b41}
+.case-instrument .widthchart small {margin-top:8px}
+.source blockquote {color:#294044;font-size:17px}
+.titleline h1,.account h1 {font-size:clamp(35px,3.45vw,53px)}
+.primary,.pilot-link {transition:background .22s}
+@media (prefers-reduced-motion:no-preference) {
+ .source {animation:case-in .4s both ease-out}.source+.source {animation-delay:.09s}
+ .decision {animation:case-in .45s both ease-out}
+}

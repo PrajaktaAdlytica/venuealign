@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 334" fill="none">
+<defs>
+ <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0v20" stroke="#48676b" stroke-opacity=".32"/></pattern>
+ <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse"><path d="m0 5 5-5" stroke="#dba387" stroke-opacity=".46"/></pattern>
+</defs>
+<rect width="760" height="334" fill="#122c34"/><rect width="760" height="334" fill="url(#grid)"/>
+<g stroke="#9bbfc1"><path d="M51 280V44h659v236M60 272V54h641v218M51 61h659M54 275h653M47 283h669v7H47z"/><path d="M95 62v207h21V62m533 0v207h16V62M69 72h618M70 80h616"/></g>
+<g stroke="#8ea9a6" stroke-width=".7"><path d="M64 62l13 16 15-16 14 16 14-16 15 16 15-16 15 16 14-16 15 16 15-16 15 16 15-16 14 16 15-16 15 16 15-16 14 16 15-16 15 16 15-16 14 16 15-16 15 16 15-16 15 16 14-16 15 16 15-16 15 16 14-16 15 16 15-16 15 16 14-16 15 16 15-16 15 16 14-16 15 16 15-16 15 16 14-16"/></g>
+<g stroke="#dfab8c" fill="url(#hatch)"><path d="M117 104c19-2 26 12 26 26 22-3 32 9 33 25 22-2 34 11 35 26 23-1 32 10 34 24 20-1 33 7 34 23 17 0 28 10 31 21 14 0 21 7 26 16H117z"/><path d="M118 168c18-4 39 7 41 25 20-1 33 9 36 24 20-1 34 7 35 22 17 0 28 9 32 19h-144z"/><path d="M649 145c-19-4-35 10-37 26-19-1-34 13-35 28-23-2-34 6-39 22-22-2-35 10-38 25-18-2-26 7-30 19h179z"/></g>
+<g stroke="#a5d8cf"><path d="M644 81h-53v12h22v11m-16 1h26l-2 20h-22zM596 111h28m-26 7h24m-19 9h14"/><path d="M118 260h530M78 269h602"/></g>
+<g stroke="#91e2d4" stroke-dasharray="4 4"><path d="M116 84v220M648 84v220"/></g>
+<path stroke="#a3e8da" d="M116 301h532m-532-5v10m532-10v10"/>
+<g font-family="monospace" font-size="10" fill="#bfdcd6"><text x="51" y="30">S–2 / FRONT ELEVATION</text><text x="648" y="30">MH–P02</text><text text-anchor="middle" x="382" y="320">MASKING REFERENCE · 7.4 m</text></g>
+</svg>

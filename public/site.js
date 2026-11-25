@@ -88,15 +88,41 @@ document.querySelectorAll('.reviewchapter').forEach(chapter => {
   }, {rootMargin:'-24% 0px -38% 0px'});
   rows.forEach(row => observer.observe(row));
 });
+const mix = document.querySelector('#drawing-mix');
+const trace = document.querySelector('.traceframe');
+let manualMix = false;
+function drawAt(percent) {
+  const value = Math.round(percent);
+  mix.value = value;
+  mix.setAttribute('aria-valuetext',value + '% technical drawing');
+  trace.style.setProperty('--exposed',value + '%');
+}
+if (mix) {
+  drawAt(Number(mix.value));
+  mix.addEventListener('input', () => {manualMix=true;drawAt(Number(mix.value));});
+}
 if (window.gsap && window.ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
   const media = gsap.matchMedia();
   media.add('(prefers-reduced-motion: no-preference)', () => {
     const hero = document.querySelector('.herohead');
     if (hero) {
-      gsap.timeline({defaults:{ease:'power3.out'}})
-        .from('.herohead h1 i',{yPercent:104,stagger:.1,duration:.85})
-        .from('.herohead p,.herohead .actions',{opacity:0,y:10,duration:.48,stagger:.09},.35);
+      const replay=document.querySelector('.replay-scene');
+      const opening=gsap.timeline({defaults:{ease:'power3.inOut'}});
+      opening.fromTo('.stage-wings i:first-child',{xPercent:0,x:0},{xPercent:-104,duration:1.35},0)
+        .fromTo('.stage-wings i:last-child',{xPercent:0,x:0},{xPercent:104,duration:1.5},.05)
+        .fromTo('.heroimage',{scale:1.085},{scale:1,duration:2.1,ease:'power2.out'},0)
+        .fromTo('.stage-light',{opacity:0},{opacity:.65,duration:.8},.25)
+        .to('.stage-light',{opacity:0,duration:1.05},1)
+        .fromTo('.herohead h1 i',{yPercent:115},{yPercent:0,stagger:.14,duration:.92,ease:'power3.out'},.43)
+        .fromTo('.herohead p,.herohead .actions',{opacity:0,y:15},{opacity:1,y:0,duration:.6,stagger:.12},.97);
+      replay.hidden=false;
+      replay.onclick=()=>opening.restart();
+    }
+    if(trace) {
+      ScrollTrigger.create({trigger:trace,start:'top 96%',end:'center 40%',onUpdate:trigger=>{
+        if(!manualMix) drawAt(8+trigger.progress*90);
+      }});
     }
     const reveal = (selector,props) => gsap.utils.toArray(selector).forEach(el => {
       gsap.from(el,{...props,duration:.77,ease:'power2.out',clearProps:'transform,opacity,clipPath',
@@ -105,12 +131,27 @@ if (window.gsap && window.ScrollTrigger) {
     reveal('.drawinggrid figure,.problemphoto,.subphoto',{clipPath:'inset(0 0 0 17%)',x:-16});
     reveal('.stopplate,.console,.reviewnote,.sourcesheet',{x:18,opacity:.6});
     reveal('.section .hgroup,.intake,.subhero h1,.closing h2,.twocards article',{y:19,opacity:.7});
-    reveal('.queuegraph i',{scaleX:.1,transformOrigin:'left'});
+    gsap.utils.toArray('.console').forEach(desk => {
+      const chart=gsap.timeline({scrollTrigger:{trigger:desk,start:'top 84%',once:true},defaults:{ease:'power2.out'}});
+      chart.fromTo(desk.querySelectorAll('.arc'),{attr:{'stroke-dasharray':'0 100'}},{attr:{'stroke-dasharray':'31 69'},duration:1,stagger:.17},0)
+        .from(desk.querySelectorAll('.ringlegend div'),{x:9,opacity:0,duration:.35,stagger:.14},.12)
+        .from(desk.querySelectorAll('.conpanel:first-of-type tr,.conpanel[data-panel="VF-031"] tbody tr'),{y:10,opacity:.05,stagger:.12,duration:.55,clearProps:'transform,opacity'},.25);
+    });
+    gsap.utils.toArray('.sourcesheet,.scoretable').forEach(sheet => {
+      const rows=sheet.querySelectorAll('dl>div,tbody tr');
+      gsap.from(rows,{y:10,opacity:.16,stagger:.08,duration:.45,clearProps:'transform,opacity',
+        scrollTrigger:{trigger:sheet,start:'top 88%',once:true}});
+    });
+    gsap.utils.toArray('.problemphoto img').forEach(img=>{
+      gsap.fromTo(img,{clipPath:'inset(9% 15% 9% 15%)'},{clipPath:'inset(0% 0% 0% 0%)',
+        scrollTrigger:{trigger:img,start:'top 92%',end:'center 49%',scrub:true}});
+    });
     gsap.utils.toArray('.routeline').forEach(line => {
       const length=line.getTotalLength();
       gsap.fromTo(line,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,ease:'none',
         scrollTrigger:{trigger:line.closest('figure'),start:'top 90%',end:'center 47%',scrub:true}});
     });
+    return () => {const replay=document.querySelector('.replay-scene');if(replay){replay.hidden=true;replay.onclick=null;}};
   });
   media.add('(min-width: 1000px) and (hover: hover) and (prefers-reduced-motion: no-preference)', () => {
     let lenis;
