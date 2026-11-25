@@ -382,3 +382,8 @@ footer {background:linear-gradient(0deg,#0c2024f5,#102a2dfa 70%),var(--sky-cloth
 .subhero:not(.night),.formpage {background:linear-gradient(90deg,#f5fbfa 8%,#edf7f5f5 43%,#deeeedaa),var(--sky-cloth) 70% 22%/165% auto}
 body[data-page="changeover-planner"] .subhero,body[data-page="advance-packet"] .subhero {background:linear-gradient(90deg,#f6faf8 15%,#edf4f0ee 61%,#e6f0edb8),url(assets/model-workshop.webp) right 55%/cover}
 @media(max-width:760px){.comparison-files>div{padding:9px;gap:6px}.subhero:not(.night),.formpage,.evidence,.reviewchapter,.problemchapter,.suite {background-repeat:no-repeat;background-color:#e9f2f1}.evidence{background-color:#153039}}
+.chapterlinks {background:#133337;color:#e3f3eb;border-bottom:1px solid #496a69}
+.chapterlinks .wrap {display:flex;align-items:center;justify-content:space-between;gap:8px 22px;flex-wrap:wrap;padding-block:8px}
+.chapterlinks a {font:600 12px/1.4 var(--sans);padding:8px 0;text-decoration-color:transparent;text-underline-offset:4px}
+.chapterlinks a:is(:hover,:focus-visible) {color:white;text-decoration:underline}
+@media(max-width:600px){.chapterlinks .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px}.chapterlinks a{padding-block:7px}}
