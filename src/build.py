@@ -1,5 +1,5 @@
 """Build VenueAlign's public, readable static pages. Usage: python3 build.py OUTPUT_DIR."""
-import sys, html, json
+import sys, html, json, shutil
 from pathlib import Path
 import scenic
 from cues import review_story as review
@@ -8,6 +8,10 @@ from scenic import illustration
 from content import PRODUCTS as P,ROLES as R
 out=Path(sys.argv[1]).resolve()
 out.mkdir(parents=True,exist_ok=True)
+public=Path(__file__).resolve().parents[1]/'public'
+if public.is_dir() and public!=out:
+    shutil.copytree(public,out,dirs_exist_ok=True)
+(out/'assets').mkdir(exist_ok=True)
 def esc(s): return html.escape(s,quote=True)
 def a(slug,label,cls=''): return f'<a class="{cls}" href="{slug}.html">{label}</a>'
 def cta(slug,label,style=''): return a(slug,label,'btn '+style)
