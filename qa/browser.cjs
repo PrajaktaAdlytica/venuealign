@@ -111,6 +111,10 @@ for (const width of [320,390,768,1440]){
   for(const file of fs.readdirSync('public').filter(name=>name.endsWith('.html'))){
     await page.goto('http://localhost:8080/'+file);
     assert.equal(await page.locator('h1').count(),1,file);
+    const brand=page.locator('header img.house-fold').first();
+    assert(await brand.evaluate(img=>img.complete && img.naturalWidth>0 && img.getBoundingClientRect().width>=90),file+' header logo');
+    assert((await page.locator('link[rel="icon"]').getAttribute('href')).includes('house-fold'),file+' favicon');
+    if(await page.locator('footer').count()) assert(await page.locator('footer img.house-fold').isVisible(),file+' footer logo');
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),file+' overflows '+width);
   }
 }

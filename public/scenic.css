@@ -435,3 +435,8 @@ body[data-page="changeover-planner"] .subhero,body[data-page="advance-packet"] .
 .subhero:not(:has(.offer-frame)),.formpage {background-position:center,70% calc(22% + var(--cloud-offset,0px))}
 @media(max-width:760px){.offer-inspect .sourcesheet{width:min(73vw,360px)}.offer-inspect .sourcesheet figcaption{padding-bottom:4px}.offer-inspect .sourcesheet dl{margin:3px 0}}
 @media(prefers-reduced-motion:reduce){.offer-inspect{position:static;clip-path:none}.stage-plan-pass,.closing:before{display:none}}
+.brand .house-fold {display:block;width:142px;height:auto}
+footer .brand .house-fold {width:170px}
+.conbar .desk-fold {width:21px;height:21px}
+@media(max-width:950px){.navinner .brand .house-fold{width:122px}}
+@media(max-width:370px){.navinner .brand .house-fold{width:102px}}

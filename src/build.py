@@ -4,16 +4,15 @@ from pathlib import Path
 import scenic
 from cues import review_story as review
 from instruments import icon, width_chart, stock_table, contact_chain
-from art import mark,brand,illustration
+from scenic import illustration
 from content import PRODUCTS as P,ROLES as R
 out=Path(sys.argv[1]).resolve()
 out.mkdir(parents=True,exist_ok=True)
-brand(out)
 def esc(s): return html.escape(s,quote=True)
 def a(slug,label,cls=''): return f'<a class="{cls}" href="{slug}.html">{label}</a>'
 def cta(slug,label,style=''): return a(slug,label,'btn '+style)
 def ey(s): return '<p class="eyeline"><b aria-hidden="true"></b>'+s+'</p>'
-def logo(): return a('index',mark()+'<span>VenueAlign</span>','brand')
+def logo(): return a('index','<img class="house-fold" src="assets/brand/lockup-reverse.svg" width="452" height="102" alt="VenueAlign home">' ,'brand')
 def linklist(items): return ''.join(a(s,n) for s,n in items)
 def hgroup(label,title,body=''): return f'<header class="hgroup">{ey(label)}<h2>{title}</h2>'+ (f'<p class="lead">{body}</p>' if body else '')+'</header>'
 def steps(items): return '<div class="steps">'+''.join(f'<article><span class="rule"></span><h3>{title}</h3><p>{body}</p></article>' for title,body in items)+'</div>'
@@ -35,7 +34,7 @@ registry=[]
 def page(slug,title,desc,markup):
     registry.append((slug,title,desc))
     (out/(slug+'.html')).write_text(f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182e2c"><title>{esc(title)} | VenueAlign</title><meta name="description" content="{esc(desc)}"><meta property="og:title" content="{esc(title)} | VenueAlign"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="assets/scenic-hero.webp"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/brand/apple.png"><link rel="preload" href="assets/fonts/Newsreader.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="site.css"><script defer src="assets/vendor/gsap.min.js"></script><script defer src="assets/vendor/ScrollTrigger.min.js"></script><link rel="stylesheet" href="instruments.css"><link rel="stylesheet" href="scenic.css"><script defer src="assets/vendor/lenis.min.js"></script><script defer src="events.js"></script><script defer src="site.js"></script></head><body data-page="{slug}">{header()}<main id="main">{markup}</main>{footer()}</body></html>''')
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182e2c"><title>{esc(title)} | VenueAlign</title><meta name="description" content="{esc(desc)}"><meta property="og:title" content="{esc(title)} | VenueAlign"><meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="assets/scenic-hero.webp"><link rel="icon" href="favicon.svg?v=house-fold" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/brand/apple.png?v=house-fold"><link rel="preload" href="assets/fonts/Newsreader.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="site.css"><script defer src="assets/vendor/gsap.min.js"></script><script defer src="assets/vendor/ScrollTrigger.min.js"></script><link rel="stylesheet" href="instruments.css"><link rel="stylesheet" href="scenic.css"><script defer src="assets/vendor/lenis.min.js"></script><script defer src="events.js"></script><script defer src="site.js"></script></head><body data-page="{slug}">{header()}<main id="main">{markup}</main>{footer()}</body></html>''')
 def home_contents():
     chapters=[('problem','The problem'),('solution','How AI helps'),('demo-preview','Demo'),('products','Products'),('use-cases','Use cases'),('pilot','Paid pilot')]
     return '<nav class="chapterlinks" aria-label="Homepage sections"><div class="wrap">'+''.join(f'<a href="#{target}">{label}</a>' for target,label in chapters)+'</div></nav>'

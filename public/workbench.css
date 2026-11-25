@@ -62,3 +62,6 @@ body {background:linear-gradient(130deg,#e2efef,#f5f8f9 68%)}
 }
 body {background:linear-gradient(100deg,#edf5f5f7 15%,#f3f8f7e8 62%,#e1eeeecc),url(assets/scenic-hero.webp) 72% top/cover fixed}
 .sidebar {background:linear-gradient(160deg,#143941f5,#13313aed),url(assets/scenic-hero.webp) 70% center/cover}
+.logo .house-fold {display:block;width:142px;height:auto}
+@media(max-width:660px){.logo .house-fold{width:112px}}
+@media(max-width:360px){.logo .house-fold{width:95px}}
