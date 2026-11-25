@@ -211,3 +211,4 @@ html.lenis,html.lenis body {height:auto}
 @media(max-width:370px){.navinner{gap:8px}.navinner .brand{font-size:22px}.navend .btn.small{font-size:14px}.routeplate ol{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.btn b,.art:hover .illustration,.art:hover .moduleplate{transform:none!important}}
 .scroll-driven {scroll-snap-type:none}
+body[data-page=index] .top {background:linear-gradient(180deg,#102321dc,#10232199)}
