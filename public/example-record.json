@@ -1,0 +1,157 @@
+{
+  "label": "DEMO · SIMULATED DATA",
+  "account": "Lattice North Productions",
+  "tour": {
+    "name": "Night Index",
+    "showCount": 5,
+    "stop": 3,
+    "venue": "Meridian Hall",
+    "showDate": "2026-10-18"
+  },
+  "exportedAt": "2026-10-10T09:40:00Z",
+  "records": [
+    {
+      "recordId": "VF-031",
+      "category": "Lighting substitution",
+      "sourceReferences": [
+        {
+          "id": "NI-R04",
+          "title": "Signed tour rider",
+          "version": "v4",
+          "date": "2026-10-02",
+          "location": "p. 12 · LX-04",
+          "quote": "“Astra 40 profile at LX-04. An alternate requires the venue technical lead’s recorded approval.”",
+          "context": "Lighting schedule, Night Index production office. The requested model and review owner are explicit. Inventory availability is recorded separately."
+        },
+        {
+          "id": "MH-I07",
+          "title": "Approved house inventory",
+          "version": "v7",
+          "date": "2026-10-09",
+          "location": "p. 4 · profiles / note C",
+          "quote": "“Astra 40: 0. Luma P4: 1, comparison note C signed. Arc P3: 1, comparison note outstanding.”",
+          "context": "House lighting inventory, Meridian Hall. Note C records the fictional department’s review of Luma P4 for this fixture request. The final stop-specific decision belongs to Inez Park."
+        }
+      ],
+      "proposedFinding": "The signed rider requests an Astra 40 profile. Meridian Hall lists none. Two local fixtures appear in the inventory.",
+      "unresolvedGap": "Arc P3 has no signed comparison note. Its suitability remains open.",
+      "assignedReviewer": "Inez Park · venue technical lead",
+      "reviewedDecision": "approved",
+      "status": "Luma P4 approved",
+      "alternatives": [
+        {
+          "name": "Luma P4",
+          "evidence": "Signed comparison note C in MH-I07.",
+          "disposition": "Approved by Inez Park"
+        },
+        {
+          "name": "Arc P3",
+          "evidence": "No comparison note supplied.",
+          "disposition": "Open · evidence incomplete"
+        }
+      ],
+      "nextAction": "Carry the reviewed Luma P4 into the example packet. Log the missing Arc P3 note as open.",
+      "decisionHistory": [
+        {
+          "at": "2026-10-10T09:10:00Z",
+          "who": "Advance coordinator",
+          "action": "Linked rider v4 and house inventory v7."
+        },
+        {
+          "at": "2026-10-10T09:14:00Z",
+          "who": "Venue Fit · simulated suggestion",
+          "action": "Flagged the missing fixture and two local alternatives for Inez Park."
+        },
+        {
+          "at": "2026-10-10T09:35:00Z",
+          "who": "Inez Park · local simulated action",
+          "action": "Approved Luma P4 for LX-04 after examining the two linked extracts. Arc P3 stays open."
+        }
+      ],
+      "exportStatus": "Exported locally"
+    },
+    {
+      "recordId": "VF-032",
+      "category": "Stage spacing",
+      "sourceReferences": [
+        {
+          "id": "NI-R04",
+          "title": "Signed tour rider",
+          "version": "v4",
+          "date": "2026-10-02",
+          "location": "p. 9 · ST-02",
+          "quote": "“Keep 8.0 m of clear stage width available for the touring layout.”",
+          "context": "Stage layout, Night Index production office. The requirement refers to usable clear width for this show."
+        },
+        {
+          "id": "MH-P02",
+          "title": "Venue plan",
+          "version": "v2",
+          "date": "2026-09-28",
+          "location": "sheet S-2 · masking",
+          "quote": "“7.4 m between masking lines. Clear stage width pending venue measurement.”",
+          "context": "Meridian Hall drawing register. The dimension spans the masking lines. There is no signed field measurement of usable clearance in the supplied packet."
+        }
+      ],
+      "proposedFinding": "The rider requests 8.0 m of clear stage width. The venue plan shows 7.4 m between masking lines. The two labels describe different measurements.",
+      "unresolvedGap": "A verified clear-width measurement for this stop is missing. Fit remains unresolved.",
+      "assignedReviewer": "Inez Park · venue technical lead",
+      "reviewedDecision": "open",
+      "status": "Open · evidence incomplete",
+      "alternatives": [],
+      "nextAction": "Inez Park must obtain a current measurement from venue staff before recording a fit decision.",
+      "decisionHistory": [
+        {
+          "at": "2026-10-10T09:17:00Z",
+          "who": "Venue Fit · simulated suggestion",
+          "action": "Marked dimension labels for review."
+        },
+        {
+          "at": "2026-10-10T09:22:00Z",
+          "who": "Inez Park",
+          "action": "Requested a verified clear-width measurement. Case stays open."
+        }
+      ],
+      "exportStatus": "Exported locally"
+    },
+    {
+      "recordId": "VF-033",
+      "category": "House stage contact",
+      "sourceReferences": [
+        {
+          "id": "NI-R04",
+          "title": "Signed tour rider",
+          "version": "v4",
+          "date": "2026-10-02",
+          "location": "p. 2 · contacts",
+          "quote": "“List the house stage contact in the final venue advance.”",
+          "context": "Arrival notes for the five-show tour."
+        },
+        {
+          "id": "MH-C03",
+          "title": "House call sheet",
+          "version": "v3",
+          "date": "2026-10-08",
+          "location": "p. 1 · stage contact",
+          "quote": "“Meridian Hall house stage contact: Inez Park, venue technical lead.”",
+          "context": "Fictional call sheet distributed for stop 03."
+        }
+      ],
+      "proposedFinding": "The house call sheet names the contact requested by the tour rider. The advance coordinator has recorded the handoff.",
+      "unresolvedGap": "No outstanding contact detail for this sample item.",
+      "assignedReviewer": "Inez Park · venue technical lead",
+      "reviewedDecision": "confirmed",
+      "status": "Confirmed",
+      "alternatives": [],
+      "nextAction": "Carry the confirmed contact role into the venue advance packet.",
+      "decisionHistory": [
+        {
+          "at": "2026-10-10T09:06:00Z",
+          "who": "Inez Park",
+          "action": "Confirmed house stage contact for stop 03."
+        }
+      ],
+      "exportStatus": "Exported locally"
+    }
+  ]
+}

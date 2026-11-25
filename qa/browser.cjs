@@ -1,0 +1,67 @@
+const {chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),assert=require('assert');
+(async()=>{
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});
+const errors=[]; page.on('pageerror',e=>errors.push(e.message)); page.on('dialog',d=>d.accept());
+const url='http://localhost:8080/demo.html';
+await page.goto('http://localhost:8080/');
+await page.evaluate(()=>document.fonts.ready); await page.waitForTimeout(900);
+await page.screenshot({path:'captures/home-1440.png'});
+await page.getByRole('button',{name:'Plan view'}).click();
+assert.equal(await page.locator('.homehero').evaluate(el=>el.classList.contains('plan')),true);
+await page.setViewportSize({width:390,height:844});
+await page.getByRole('button',{name:'Stage view'}).click();
+await page.screenshot({path:'captures/home-390.png'});
+await page.getByRole('button',{name:'Menu',exact:true}).click();
+await page.getByRole('navigation',{name:'Main navigation'}).getByText('Pricing',{exact:true}).click();
+assert(page.url().endsWith('pricing.html'));
+await page.setViewportSize({width:1440,height:1000});
+await page.goto(url);
+await page.getByRole('button',{name:'Inspect rider extract'}).click();
+await page.getByRole('dialog').waitFor();await page.keyboard.press('Escape');
+await page.getByRole('button',{name:'Inspect venue extract'}).click();
+await page.getByRole('button',{name:'Close document'}).click();
+await page.getByRole('button',{name:'Approve Luma P4'}).click();
+assert((await page.locator('.record-head .chip').textContent()).includes('approved'));
+await page.getByText('Decision history (3)').click();
+await page.screenshot({path:'captures/venue-fit-1440.png',fullPage:true});
+const dlPromise=page.waitForEvent('download');
+await page.getByRole('button',{name:'Export stop record'}).click();
+const dl=await dlPromise;
+const exported=JSON.parse(fs.readFileSync(await dl.path(),'utf8'));
+assert.equal(exported.label,'DEMO · SIMULATED DATA');assert.equal(exported.records[0].reviewedDecision,'approved');assert.equal(exported.records[1].reviewedDecision,'open');assert.equal(exported.records[0].alternatives[1].disposition,'Open · evidence incomplete');
+await page.reload();assert((await page.locator('.record-head .chip').textContent()).includes('approved'));
+await page.setViewportSize({width:390,height:844});
+await page.getByText('Decision history (3)').click();
+await page.screenshot({path:'captures/venue-fit-390.png',fullPage:true});
+assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+await page.getByRole('button',{name:'Cases (3)'}).click();await page.locator('[data-id="VF-032"]').click();
+assert.equal(await page.locator('#record h2').textContent(),'Stage spacing');
+await page.getByRole('button',{name:'Record open follow-up'}).click();
+assert.equal(await page.locator('.record-head .chip').textContent(),'Open · evidence incomplete');
+await page.getByRole('button',{name:'Reset demo'}).click();
+assert.equal(await page.locator('.record-head .chip').textContent(),'Awaiting review');
+assert.deepEqual(errors,[]);console.log('Desktop/mobile, inspect, approve, persist, export, open gap and reset passed.');
+for (const width of [390,768,1440]){
+  await page.setViewportSize({width,height:900});
+  for(const file of fs.readdirSync('public').filter(name=>name.endsWith('.html'))){
+    await page.goto('http://localhost:8080/'+file);
+    assert.equal(await page.locator('h1').count(),1,file);
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),file+' overflows '+width);
+  }
+}
+await page.goto('http://localhost:8080/pilot.html');
+await page.locator('[name=email]').fill('test@example.com');
+await page.locator('[name=organization]').fill('Example QA');
+for(const select of await page.locator('select').all()) await select.selectOption({index:1});
+await page.locator('textarea').fill('Match the same historical cases.');
+const briefEvent=page.waitForEvent('download');
+await page.getByRole('button',{name:'Download pilot brief'}).click();
+const brief=JSON.parse(fs.readFileSync(await (await briefEvent).path(),'utf8'));
+assert.equal(brief.pilotModule,'Venue Fit');
+assert(await page.evaluate(()=>JSON.parse(localStorage.getItem('venuealign-events')).some(e=>e.event==='qualified_pilot_request')));
+assert.deepEqual(errors,[]);
+fs.writeFileSync('captures/qa.txt','1440 and 390 reviewed case captures. All public HTML routes checked at 390, 768 and 1440. Mobile menu, hero plan switch, demo source review, local approval, open spacing, export, reset and pilot brief verified.');
+await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VenueAlign fictional stop packet",
+  "type": "object",
+  "properties": {
+    "label": {
+      "const": "DEMO · SIMULATED DATA"
+    },
+    "account": {
+      "type": "string"
+    },
+    "tour": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "showCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "stop": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "venue": {
+          "type": "string"
+        },
+        "showDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "name",
+        "showCount",
+        "stop",
+        "venue",
+        "showDate"
+      ],
+      "additionalProperties": false
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "pattern": "^VF-[0-9]{3}$"
+          },
+          "category": {
+            "type": "string"
+          },
+          "sourceReferences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "quote": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "title",
+                "version",
+                "date",
+                "location",
+                "quote",
+                "context"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "proposedFinding": {
+            "type": "string"
+          },
+          "unresolvedGap": {
+            "type": "string"
+          },
+          "assignedReviewer": {
+            "type": "string"
+          },
+          "reviewedDecision": {
+            "enum": [
+              "pending",
+              "approved",
+              "open",
+              "confirmed"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "alternatives": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "string"
+                },
+                "disposition": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "evidence",
+                "disposition"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nextAction": {
+            "type": "string"
+          },
+          "decisionHistory": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "who": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "at",
+                "who",
+                "action"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "exportStatus": {
+            "enum": [
+              "Ready for local export",
+              "Exported locally"
+            ]
+          }
+        },
+        "required": [
+          "recordId",
+          "category",
+          "sourceReferences",
+          "proposedFinding",
+          "unresolvedGap",
+          "assignedReviewer",
+          "reviewedDecision",
+          "status",
+          "alternatives",
+          "nextAction",
+          "decisionHistory",
+          "exportStatus"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "label",
+    "account",
+    "tour",
+    "exportedAt",
+    "records"
+  ],
+  "additionalProperties": false
+}

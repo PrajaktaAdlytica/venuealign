@@ -1,0 +1,24 @@
+name: Browser review
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Inspect pages and capture the reviewed decision
+        run: |
+          python3 -m http.server 8080 --directory public &
+          mkdir -p captures
+          node qa/browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-evidence
+          path: captures/
